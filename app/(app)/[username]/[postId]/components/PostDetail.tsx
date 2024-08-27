@@ -18,16 +18,16 @@ const PostDetail: React.FC<PostDetailProps> = ({ post }) => {
     document.querySelectorAll("pre code").forEach((block) => {
       hljs.highlightBlock(block as HTMLElement);
     });
-  }, [post.content]);
+  }, [post?.content]);
 
   const oneWeekAgo = subWeeks(new Date(), 1);
-  const isRecent = isWithinInterval(post.createdAt, {
+  const isRecent = isWithinInterval(post?.createdAt, {
     start: oneWeekAgo,
     end: new Date(),
   });
 
-  const formattedDate = format(post.createdAt, "MMM d");
-  let relativeTime = formatDistanceToNowStrict(post.createdAt, {
+  const formattedDate = format(post?.createdAt, "MMM d");
+  let relativeTime = formatDistanceToNowStrict(post?.createdAt, {
     addSuffix: false,
   });
 
@@ -39,7 +39,7 @@ const PostDetail: React.FC<PostDetailProps> = ({ post }) => {
     <div className="flex justify-center w-full">
       <div className="flex flex-col gap-16 max-w-4xl">
         <div className="flex w-full justify-center">
-          <h1 className="text-5xl font-bold">{post.title}</h1>
+          <h1 className="text-5xl font-bold">{post?.title}</h1>
         </div>
         <div className="flex items-center justify-between">
           <Link href={"/"} className="flex max-w-4xl items-start space-x-4">

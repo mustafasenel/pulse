@@ -131,7 +131,7 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
-                  <DropdownMenuLabel>{user?.username}</DropdownMenuLabel>
+                  <DropdownMenuLabel>@{user?.username}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
                     <DropdownMenuItem>Profile</DropdownMenuItem>

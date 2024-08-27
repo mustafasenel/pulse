@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
 import { FullPostType } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   format,
   formatDistanceToNowStrict,
@@ -14,24 +14,30 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { MdCalendarMonth, MdComment, MdThumbUp } from "react-icons/md";
 
 interface PostCardProps {
-  id: number;
   post: FullPostType;
 }
 
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
-  const oneWeekAgo = subWeeks(new Date(), 1);
-  const isRecent = isWithinInterval(post.createdAt, {
-    start: oneWeekAgo,
-    end: new Date(),
-  });
+  const [displayDate, setDisplayDate] = useState<string>("");
 
-  const formattedDate = format(post.createdAt, "MMM d");
-  let relativeTime = formatDistanceToNowStrict(post.createdAt, {
-    addSuffix: false,
-  });
-  relativeTime = relativeTime.replace("minutes", "min").replace("hour", "h").replace("seconds", "sec");
+  useEffect(() => {
+    const oneWeekAgo = subWeeks(new Date(), 1);
+    const isRecent = isWithinInterval(post.createdAt, {
+      start: oneWeekAgo,
+      end: new Date(),
+    });
 
-  const displayDate = isRecent ? relativeTime : formattedDate;
+    let relativeTime = formatDistanceToNowStrict(post.createdAt, {
+      addSuffix: false,
+    });
+    relativeTime = relativeTime
+      .replace("minutes", "min")
+      .replace("hours", "h")
+      .replace("seconds", "sec");
+
+    setDisplayDate(isRecent ? relativeTime : format(post.createdAt, "MMM d"));
+  }, [post.createdAt]);
+
   return (
     <div>
       <div className="hover:shadow-sm border transition overflow-hidden rounded-lg h-full min-h-52 flex flex-col">
@@ -49,7 +55,10 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
               fill
             />
           </div>
-          <Link href={`/${post.user.username}/${post.id}`} className="flex flex-col pt-2 px-3 space-y-4 min-w-96 justify-between">
+          <Link
+            href={`/${post.user.username}/${post.id}`}
+            className="flex flex-col pt-2 px-3 space-y-4 min-w-96 justify-between"
+          >
             <div className="flex flex-col space-y-4">
               <Link href={"/"} className="flex space-x-4">
                 <Avatar>

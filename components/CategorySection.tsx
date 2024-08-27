@@ -29,20 +29,19 @@ const CategorySection: React.FC<CategorySectionProps> = ({ posts }) => {
     fetchCategories();
   }, []);
 
-
   return (
     <div className="flex flex-col space-y-16 pb-20">
       <div className="flex items-center justify-center flex-nowrap overflow-x-auto space-x-6">
-        {categories.map((category, index) => (
-          <Button key={index} variant="outline">
-            {category.name}
-          </Button>
+        {categories.map((category) => (
+            <Button key={category.id} variant="outline">
+              {category.name}
+            </Button>
         ))}
       </div>
       <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-6">
         {posts ? (
-          posts?.map((post, index) => (
-            <PostCard id={index} post={post} />
+          posts?.map((post) => (
+              <PostCard key={post.id} post={post} />
           ))
         ) : (
           <div className="flex items-center justify-center">

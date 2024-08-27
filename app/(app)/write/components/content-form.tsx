@@ -26,7 +26,7 @@ interface ContentFormProps {
 
 const ContentForm:React.FC<ContentFormProps> = ({ user }) => {
   const [content, setContent] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
+  const [title, setTitle] = useState<string>(window.localStorage.getItem('postTitle') || "");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
@@ -77,6 +77,10 @@ const ContentForm:React.FC<ContentFormProps> = ({ user }) => {
     setContentInContext(content);
   }, [content, title]);
 
+  useEffect(() => {
+    window.localStorage.setItem('postTitle', title)
+  }, [title])
+
   return (
     <div className="mt-6 flex w-full flex-col space-y-10">
       <div className="flex gap-4">
@@ -86,10 +90,11 @@ const ContentForm:React.FC<ContentFormProps> = ({ user }) => {
           disabled={isLoading}
           value={title}
           onChange={e => setTitle(e.target.value)}
+          maxLength={200}
         />
       </div>
 
-      <Editor initialValue={defaultValue} onChange={setContent} />
+      <Editor onChange={setContent} />
     </div>
   );
 };
