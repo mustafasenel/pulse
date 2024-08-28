@@ -18,7 +18,13 @@ import Link from "next/link";
 
 import { FaPen } from "react-icons/fa";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
-import { MdLogout } from "react-icons/md";
+import {
+  MdLogout,
+  MdMoney,
+  MdMoneyOff,
+  MdPerson,
+  MdSettings,
+} from "react-icons/md";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import { useFormContext } from "@/app/context/FormContext";
@@ -134,19 +140,45 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
                   <DropdownMenuLabel>@{user?.username}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                    <DropdownMenuItem>Billing</DropdownMenuItem>
-                    <DropdownMenuItem>Settings</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        href={"/profile"}
+                        className="flex items-center gap-2 cursor-pointer"
+                      >
+                        <MdPerson />
+                        <span>Profile</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        href={"/billing"}
+                        className="flex items-center gap-2 cursor-pointer"
+                      >
+                        <MdMoney />
+                        <span>Billing</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        href={"/settings"}
+                        className="flex items-center gap-2 cursor-pointer"
+                      >
+                        <MdSettings />
+                        <span>Settings</span>
+                      </Link>
+                    </DropdownMenuItem>
                   </DropdownMenuGroup>
 
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    className="flex items-center space-x-2"
-                    onClick={() => signOut()}
-                  >
-                    <MdLogout />
-                    <span>Log out</span>
-                  </DropdownMenuItem>
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem
+                      className="flex items-center gap-2 cursor-pointer"
+                      onClick={() => signOut()}
+                    >
+                      <MdLogout />
+                      <span>Log out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
                 </DropdownMenuContent>
               </DropdownMenu>
             </>
