@@ -14,40 +14,40 @@ datasource db {
 }
 
 model User {
-  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
   name           String?
   surname        String?
-  username       String?        @unique
-  email          String?        @unique
+  username       String?   @unique
+  email          String?   @unique
   tel            String?
   emailVerified  DateTime?
   image          String?
   hashedPassword String?
   bio            String?
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
   // Relations
-  account Account[]
+  account        Account[]
   education      Education[]
   workExperience WorkExperience[]
   certifications Certification[]
-  posts          Post[]   
+  posts          Post[]
 }
 
 model Account {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  userId String @db.ObjectId
-  type String
-  provider String
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
   providerAccountId String
-  refresh_token String? @db.String
-  access_token String? @db.String
-  expires_at Int?
-  token_type String?
-  scope String?
-  id_token String? @db.String
-  session_state String?
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -63,49 +63,52 @@ model Post {
   published Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  userId    String? @db.ObjectId
-  user      User?     @relation(fields: [userId], references: [id])
+  userId    String?  @db.ObjectId
+  user      User?    @relation(fields: [userId], references: [id])
 
   postCategories PostCategory[] // Relation field
 }
 
 model Category {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  name      String     @unique
-  posts     PostCategory[] // Relation field
+  id    String         @id @default(auto()) @map("_id") @db.ObjectId
+  name  String         @unique
+  posts PostCategory[] // Relation field
 }
 
 model PostCategory {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  postId     String   @db.ObjectId
-  categoryId String   @db.ObjectId
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  postId     String @db.ObjectId
+  categoryId String @db.ObjectId
 
-  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@index([postId, categoryId]) // Ensures unique combinations
 }
 
 model Education {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
   school    String
-  degree    String
+  degree    String?
   field     String
+  detail    String?
   startDate DateTime
   endDate   DateTime?
-  userId    String? @db.ObjectId
+  currentlyWorking Boolean?
+  userId    String?   @db.ObjectId
   user      User?     @relation(fields: [userId], references: [id])
-  
 }
 
 model WorkExperience {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  company   String
-  role      String
-  startDate DateTime
-  endDate   DateTime?
-  userId    String? @db.ObjectId
-  user      User?     @relation(fields: [userId], references: [id])
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  company          String
+  role             String
+  detail           String?
+  startDate        DateTime
+  endDate          DateTime?
+  currentlyWorking Boolean?
+  userId           String?   @db.ObjectId
+  user             User?     @relation(fields: [userId], references: [id])
 }
 
 model Certification {
@@ -113,7 +116,6 @@ model Certification {
   title      String
   issuer     String
   dateIssued DateTime
-  userId     String? @db.ObjectId
-  user       User?     @relation(fields: [userId], references: [id])
+  userId     String?  @db.ObjectId
+  user       User?    @relation(fields: [userId], references: [id])
 }
-

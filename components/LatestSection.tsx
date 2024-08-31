@@ -8,15 +8,18 @@ import {
     CarouselNext,
     CarouselPrevious,
   } from "@/components/ui/carousel"
+
 import { Card, CardContent } from "./ui/card";
 
 const LatestSection = () => {
+
   return (
 <Carousel
       opts={{
         align: "start",
       }}
       className="w-full"
+
     >
       <CarouselContent>
         {Array.from({ length: 10 }).map((_, index) => (

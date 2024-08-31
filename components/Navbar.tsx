@@ -142,7 +142,7 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
                   <DropdownMenuGroup>
                     <DropdownMenuItem>
                       <Link
-                        href={"/profile"}
+                        href={`/${user.username}`}
                         className="flex items-center gap-2 cursor-pointer"
                       >
                         <MdPerson />

@@ -1,18 +1,21 @@
 import { Separator } from "@/components/ui/separator"
-import { AppearanceForm } from "./appearance-form"
+import { CareerDetailsForm } from "./careerDetails-form"
+import getWorkExperienceBy from "@/app/actions/getWorkExperienceById"
+import getCurrentUser from "@/app/actions/getCurrentUser"
 
-export default function SettingsAppearancePage() {
+export default async function SettingsAppearancePage() {
+  const currentUser = await getCurrentUser()
+  const workExperiences = await getWorkExperienceBy(currentUser?.id, undefined)
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium">Appearance</h3>
+        <h3 className="text-lg font-medium">Career Details</h3>
         <p className="text-sm text-muted-foreground">
-          Customize the appearance of the app. Automatically switch between day
-          and night themes.
+          Add or update your career details and preferences.
         </p>
       </div>
       <Separator />
-      <AppearanceForm />
+      <CareerDetailsForm userWorkExperiences={workExperiences}/>
     </div>
   )
 }

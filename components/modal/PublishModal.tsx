@@ -179,7 +179,7 @@ export function PublishModal({ isOpen, onClose, user }: PublishModalProps) {
             <Label className="font-light text-xs">
               A brief summary highlighting the main points of your story.
             </Label>
-            <Textarea maxLength={100} required cols={3} placeholder="Enter a brief summary of your story..." onChange={(e) => setSummaryContext(e.target.value)}/>
+            <Textarea className="resize-none" maxLength={100} required cols={3} placeholder="Enter a brief summary of your story..." onChange={(e) => setSummaryContext(e.target.value)}/>
             <Label className="font-light text-xs">
               Add or change topics (up to 5) so readers know what your story is
               about

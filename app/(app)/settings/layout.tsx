@@ -24,6 +24,10 @@ const sidebarNavItems = [
     href: "/settings/details",
   },
   {
+    title: "Education Details",
+    href: "/settings/education",
+  },
+  {
     title: "Notifications",
     href: "/settings/notifications",
   },

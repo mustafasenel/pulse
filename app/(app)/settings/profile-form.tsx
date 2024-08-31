@@ -40,7 +40,7 @@ const profileFormSchema = z.object({
       required_error: "Please select an email to display.",
     })
     .email(),
-  bio: z.string().max(160).min(4),
+  bio: z.string().max(300).min(4),
   name: z.string().max(160).min(2),
   urls: z
     .array(
@@ -164,6 +164,7 @@ export function ProfileForm({ user }: ProfileFormTypes) {
                 <Textarea
                   placeholder="Tell us a little bit about yourself"
                   className="resize-none"
+                  cols={4}
                   {...field}
                 />
               </FormControl>
