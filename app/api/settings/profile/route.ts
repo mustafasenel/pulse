@@ -1,18 +1,25 @@
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prismadb";
-import { json } from "stream/consumers";
 
 export async function POST(request: Request) {
   try {
     const currentUser = await getCurrentUser();
     const body = await request.json();
-    const { username, email, name, bio } = body;
+    const { username, email, name, bio, links } = body;
+
+    console.log(links)
 
     if (!currentUser?.email) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
+    const filteredLinks = Array.isArray(links)
+      ? links
+          .map((link: { value: string }) => link.value?.trim())
+          .filter((url: string) => (url !== "" && url!=undefined))
+      : [];
 
+    console.log(filteredLinks)
     const updatedUser = await prisma.user.update({
         where: {
             id: currentUser.id
@@ -21,7 +28,8 @@ export async function POST(request: Request) {
             username,
             name,
             email,
-            bio
+            bio,
+            links : filteredLinks
         }
     })
 

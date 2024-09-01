@@ -1,4 +1,4 @@
-import { Account, Education, Post, PostCategory, User, WorkExperience } from "@prisma/client";
+import { Account, Education, Follower, Post, PostCategory, User, WorkExperience } from "@prisma/client";
 
 export type FullPostType = Post & {
     user: User;
@@ -7,6 +7,8 @@ export type FullPostType = Post & {
 
 export type FullUserType= User & {
     account: Account[] | null
+    followers: Follower[] | null
+    followings: Follower[] | null
 }
 
 export type FullWorkExperienceType = WorkExperience & {

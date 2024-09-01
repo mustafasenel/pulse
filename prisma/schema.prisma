@@ -22,13 +22,14 @@ model User {
   tel            String?
   emailVerified  DateTime?
   image          String?
+  coverImage     String?
   hashedPassword String?
   bio            String?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
   //Links
-  links          String[]
+  links String[]
 
   // Relations
   account        Account[]
@@ -36,6 +37,10 @@ model User {
   workExperience WorkExperience[]
   certifications Certification[]
   posts          Post[]
+
+  // Follower/Following Relations
+  followers  Follower[] @relation("followers")
+  followings Follower[] @relation("followings")
 }
 
 model Account {
@@ -55,6 +60,18 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+}
+
+model Follower {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  followerId  String @db.ObjectId
+  followingId String @db.ObjectId
+
+  follower  User @relation("followers", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation("followings", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@index([followerId, followingId], map: "unique_follow")
 }
 
 model Post {
@@ -90,16 +107,16 @@ model PostCategory {
 }
 
 model Education {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  school    String
-  degree    String?
-  field     String
-  detail    String?
-  startDate DateTime
-  endDate   DateTime?
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  school           String
+  degree           String?
+  field            String
+  detail           String?
+  startDate        DateTime
+  endDate          DateTime?
   currentlyWorking Boolean?
-  userId    String?   @db.ObjectId
-  user      User?     @relation(fields: [userId], references: [id])
+  userId           String?   @db.ObjectId
+  user             User?     @relation(fields: [userId], references: [id])
 }
 
 model WorkExperience {

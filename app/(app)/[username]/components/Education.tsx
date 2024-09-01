@@ -46,12 +46,12 @@ const Education:React.FC<EducationProps> = ({ educations }) => {
                   </span>
                 </CardDescription>
               </CardHeader>
-              <CardContent>{experience.detail}</CardContent>
+              <CardContent className="text-sm">{experience.detail}</CardContent>
               <CardFooter></CardFooter>
             </Card>
           ))
         ) : (
-          <div>No experiences added.</div>
+          <div className="text-sm">No experiences added.</div>
         )}
       </div>
     </div>

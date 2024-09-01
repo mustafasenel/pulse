@@ -96,7 +96,7 @@ export default function Editor({ onChange }: EditorProps) {
     const content = window.localStorage.getItem("novel-content");
     if (content) setInitialContent(JSON.parse(content));
     else setInitialContent(defaultEditorContent);
-  });
+  }, []);
 
   if (!initialContent) return null;
 

@@ -69,13 +69,13 @@ const ContentForm:React.FC<ContentFormProps> = ({ user }) => {
     if (trigger) {
       handleSubmit(onSubmit)();
     }
-  }, [trigger, handleSubmit, onSubmit]);
+  }, [trigger]);
 
   useEffect(() => {
     setValue("content", content);
     setValue("title", title);
     setContentInContext(content);
-  }, [content, title, setContentInContext, setValue]);
+  }, [content, title]);
 
   useEffect(() => {
     window.localStorage.setItem('postTitle', title)

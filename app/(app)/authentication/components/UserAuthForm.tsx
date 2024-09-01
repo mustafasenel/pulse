@@ -34,7 +34,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   } = useForm<FieldValues>({
     defaultValues: {
       name: "",
-      surname: "",
       email: "",
       password: "",
       passwordAgain: "",
@@ -99,18 +98,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                   autoCorrect="off"
                   disabled={isLoading}
                   {...register("name", { required: false })}
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="surname">Surname</Label>
-                <Input
-                  id="surname"
-                  placeholder="Doe"
-                  type="text"
-                  autoCapitalize="none"
-                  autoCorrect="off"
-                  disabled={isLoading}
-                  {...register("surname", { required: false })}
                 />
               </div>
             </>

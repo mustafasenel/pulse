@@ -15,7 +15,9 @@ const getCurrentUser = async ():Promise<FullUserType|null> => {
                 email: session.user.email as string
             },
             include:{
-                account: true
+                account: true,
+                followers: true,
+                followings: true
             }
         })
 
