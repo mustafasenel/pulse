@@ -20,7 +20,6 @@ import {
   slashCommand,
   suggestionItems,
 } from "@/components/editor/slash-command";
-import EditorMenu from "@/components/editor/editor-menu";
 import { uploadFn } from "@/components/editor/image-upload";
 import { defaultExtensions } from "@/components/editor/extensions";
 import { TextButtons } from "@/components/editor/selectors/text-buttons";
@@ -97,7 +96,7 @@ export default function Editor({ onChange }: EditorProps) {
     const content = window.localStorage.getItem("novel-content");
     if (content) setInitialContent(JSON.parse(content));
     else setInitialContent(defaultEditorContent);
-  }, []);
+  });
 
   if (!initialContent) return null;
 
