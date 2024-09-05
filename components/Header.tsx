@@ -42,7 +42,7 @@ const Header = () => {
           Create an account
         </Button>
         <Button variant={"default"}>
-          Read more
+          Explore
         </Button>
       </div>
     </div>
