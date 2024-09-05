@@ -43,7 +43,7 @@ const profileFormSchema = z.object({
       required_error: "Please select an email to display.",
     })
     .email(),
-  bio: z.string().max(300).min(4),
+  bio: z.string().max(300).min(4).optional(),
   name: z.string().max(160).min(2),
   links: z
   .array(
@@ -86,11 +86,11 @@ interface ProfileFormTypes {
 
 export function ProfileForm({ user }: ProfileFormTypes) {
   const defaultValues: Partial<ProfileFormValues> = {
-    bio: user.bio || "",
-    username: user.username || "",
-    email: user.email || "",
-    name: user.name || "",
-    links: user.links?.map((link) => ({ value: link })) || [],
+    bio: user?.bio || "",
+    username: user?.username || "",
+    email: user?.email || "",
+    name: user?.name || "",
+    links: user?.links?.map((link) => ({ value: link })) || [],
   };
 
   const [isLoading, setIsLoading] = useState(false);
