@@ -1,9 +1,8 @@
 "use client";
 
 import { FullPostType } from "@/types";
-import React from "react";
+import React, { useEffect } from "react";
 import hljs from "highlight.js";
-import { useEffect } from "react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { format, formatDistanceToNowStrict, isWithinInterval, subWeeks } from "date-fns";
@@ -15,8 +14,9 @@ interface PostDetailProps {
 
 const PostDetail: React.FC<PostDetailProps> = ({ post }) => {
   useEffect(() => {
+    // Highlight code blocks using highlight.js
     document.querySelectorAll("pre code").forEach((block) => {
-      hljs.highlightBlock(block as HTMLElement);
+      hljs.highlightElement(block as HTMLElement);
     });
   }, [post?.content]);
 
@@ -31,8 +31,9 @@ const PostDetail: React.FC<PostDetailProps> = ({ post }) => {
     addSuffix: false,
   });
 
+  // Replace full time units with abbreviations
   relativeTime = relativeTime.replace("minutes", "min").replace("hour", "h").replace("seconds", "sec");
-  
+
   const displayDate = isRecent ? relativeTime : formattedDate;
 
   return (
@@ -61,25 +62,25 @@ const PostDetail: React.FC<PostDetailProps> = ({ post }) => {
             </div>
           </Link>
           <div className="flex pb-3 gap-2">
-              <div className="grid grid-cols-3 min-w-52">
-                <span className="flex gap-1 flex-nowrap text-nowrap items-center">
-                  <MdCalendarMonth size={20}/>
-                  <span className="text-xs">{displayDate}</span>
-                </span>
-                <span className="flex gap-1 flex-nowrap text-nowrap items-center">
-                  <MdThumbUp size={20}/>
-                  <span className="text-xs">{displayDate}</span>
-                </span>
-                <span className="flex gap-1 flex-nowrap text-nowrap items-center">
-                  <MdComment size={20}/>
-                  <span className="text-xs">{displayDate}</span>
-                </span>
-              </div>
+            <div className="grid grid-cols-3 min-w-52">
+              <span className="flex gap-1 flex-nowrap text-nowrap items-center">
+                <MdCalendarMonth size={20} />
+                <span className="text-xs">{displayDate}</span>
+              </span>
+              <span className="flex gap-1 flex-nowrap text-nowrap items-center">
+                <MdThumbUp size={20} />
+                <span className="text-xs">{displayDate}</span>
+              </span>
+              <span className="flex gap-1 flex-nowrap text-nowrap items-center">
+                <MdComment size={20} />
+                <span className="text-xs">{displayDate}</span>
+              </span>
             </div>
+          </div>
         </div>
         <div className="flex justify-center">
           <article
-            className="max-w-4xl  prose-headings:font-title font-default prose lg:prose-xl dark:prose-invert focus:outline-none"
+            className="max-w-4xl prose-headings:font-title font-default prose lg:prose-xl dark:prose-invert focus:outline-none"
             dangerouslySetInnerHTML={{ __html: post.content }}
           ></article>
         </div>
