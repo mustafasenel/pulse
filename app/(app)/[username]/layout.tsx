@@ -8,7 +8,7 @@ import Image from "next/image";
 import getUserById from "@/app/actions/getUserById";
 import Cover from "./components/Cover";
 import FollowerComp from "./components/FollowerComp";
-
+import FollowComp from "@/components/FollowComp";
 
 interface IParams {
   username: string;
@@ -78,15 +78,18 @@ export default async function SettingsLayout({
                 />
               </div>
               <div className="space-y-0.5">
-                <h2 className="md:text-2xl text-lg font-bold tracking-tight">
-                  {user?.name}
-                </h2>
+                <div className="flex items-center gap-4">
+                  <h2 className="md:text-2xl text-lg font-bold tracking-tight">
+                    {user?.name}
+                  </h2>
+                  <FollowComp user={user!} currentUser={currentUser!} />
+                </div>
                 <p className="md:text-base text-sm text-muted-foreground">
                   @{user?.username}
                 </p>
               </div>
             </div>
-            <FollowerComp user={user} currentUser={currentUser}/>
+            <FollowerComp user={user} currentUser={currentUser} />
           </div>
           <Separator className="my-6" />
           <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">

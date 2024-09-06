@@ -13,12 +13,12 @@ const FollowerComp:React.FC<FollowerCompProps> = ({ user, currentUser }) => {
     <div className='flex items-center justify-between space-x-6'>
       <div className="flex items-center space-x-2">
         <MdPeopleAlt size={20}/>
-        <span>1m</span>
+        <span>{user?.followings?.length}</span>
         <span className='text-sm text-muted-foreground'>followers</span>
       </div>
       <div className="flex items-center space-x-2">
         <MdPeopleAlt size={20}/>
-        <span>0</span>
+        <span>{user?.followers?.length}</span>
         <span className='text-sm text-muted-foreground'>following</span>
       </div>
     </div>

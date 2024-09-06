@@ -13,12 +13,15 @@ import {
 } from "date-fns";
 import { MdCalendarMonth, MdComment, MdThumbUp } from "react-icons/md";
 import Image from "next/image";
+import FollowComp from "@/components/FollowComp";
+import { User } from "@prisma/client";
 
 interface PostDetailProps {
   post: FullPostType;
+  currentUser?: User;
 }
 
-const PostDetail: React.FC<PostDetailProps> = ({ post }) => {
+const PostDetail: React.FC<PostDetailProps> = ({ post, currentUser }) => {
   useEffect(() => {
     const blocks = document.querySelectorAll("pre code");
     blocks.forEach((block) => {
@@ -57,13 +60,13 @@ const PostDetail: React.FC<PostDetailProps> = ({ post }) => {
       <div className="flex flex-col gap-16 max-w-4xl">
         {post.thumbnail && (
           <div className="flex items-center justify-center">
-            <Image 
-              alt="thumbnail" 
-              src={post.thumbnail} 
+            <Image
+              alt="thumbnail"
+              src={post.thumbnail}
               width={100}
               height={200}
               className="h-56 w-full object-cover"
-              unoptimized  
+              unoptimized
             />
           </div>
         )}
@@ -83,9 +86,10 @@ const PostDetail: React.FC<PostDetailProps> = ({ post }) => {
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <div className="flex flex-col justify-between py-1">
-              <span className="text-sm font-semibold">
-                {post.user.name} {post.user.surname}
-              </span>
+              <div className="flex gap-4 items-center">
+                <span className="text-sm font-semibold">{post.user.name}</span>
+                <FollowComp  />
+              </div>
               <span className="text-xs font-light">@{post.user.username}</span>
             </div>
           </Link>

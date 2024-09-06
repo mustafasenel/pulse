@@ -98,7 +98,7 @@ const PostCard: React.FC<PostCardProps> = ({
             className="flex flex-1 flex-col pt-2 px-3 space-y-4 min-w-96 justify-between"
           >
             <div className="flex flex-col space-y-4">
-              <Link href={"/"} className="flex space-x-4">
+              <Link href={`/${post.user.username}`} className="flex space-x-4">
                 <Avatar>
                   <AvatarImage
                     src={

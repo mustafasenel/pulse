@@ -15,7 +15,7 @@ export default async function PostDetail({ params } : {params: IParams} ) {
     <main className="w-full h-full">
       <Navbar user={currentUser!} />
       <div className="container w-full py-24">
-        <PostDetailComp post={post!}/>
+        <PostDetailComp post={post!} currentUser={currentUser!}/>
       </div>
     </main>
   );
