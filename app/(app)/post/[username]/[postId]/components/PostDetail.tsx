@@ -13,12 +13,12 @@ interface PostDetailProps {
 }
 
 const PostDetail: React.FC<PostDetailProps> = ({ post }) => {
-  useEffect(() => {
-    // Highlight code blocks using highlight.js
-    document.querySelectorAll("pre code").forEach((block) => {
-      hljs.highlightElement(block as HTMLElement);
-    });
-  }, [post?.content]);
+  // useEffect(() => {
+  //   // Highlight code blocks using highlight.js
+  //   document.querySelectorAll("pre code").forEach((block) => {
+  //     hljs.highlightElement(block as HTMLElement);
+  //   });
+  // }, [post?.content]);
 
   const oneWeekAgo = subWeeks(new Date(), 1);
   const isRecent = isWithinInterval(post?.createdAt, {
