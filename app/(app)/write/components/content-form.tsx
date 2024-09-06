@@ -55,7 +55,7 @@ const ContentForm:React.FC<ContentFormProps> = ({ user }) => {
         summary
       }).then((res) => {
         toast.success('Article publised successfully!')
-        router.push(`/${user.username}/${res.data.post.id}`)
+        router.push(`/post/${user.username}/${res.data.post.id}`)
       }).finally(() => {
         setIsLoading(false);
       });

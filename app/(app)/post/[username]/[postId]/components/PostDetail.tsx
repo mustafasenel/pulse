@@ -14,16 +14,19 @@ interface PostDetailProps {
 
 const PostDetail: React.FC<PostDetailProps> = ({ post }) => {
   useEffect(() => {
-    if (post?.content) {
-      const blocks = document.querySelectorAll("pre code");
-      blocks.forEach((block) => {
-        // Ensure that the block is an HTMLElement
-        if (block instanceof HTMLElement) {
+    const blocks = document.querySelectorAll("pre code");
+    blocks.forEach((block) => {
+      // Ensure that the block is an HTMLElement
+      if (block instanceof HTMLElement) {
+        try {
           hljs.highlightElement(block);
+        } catch (error) {
+          console.error("Error highlighting code block:", error);
         }
-      });
-    }
+      }
+    });
   }, [post?.content]);
+  
   
 
   const oneWeekAgo = subWeeks(new Date(), 1);
