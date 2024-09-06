@@ -5,8 +5,14 @@ import React, { useEffect } from "react";
 import hljs from "highlight.js";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { format, formatDistanceToNowStrict, isWithinInterval, subWeeks } from "date-fns";
+import {
+  format,
+  formatDistanceToNowStrict,
+  isWithinInterval,
+  subWeeks,
+} from "date-fns";
 import { MdCalendarMonth, MdComment, MdThumbUp } from "react-icons/md";
+import Image from "next/image";
 
 interface PostDetailProps {
   post: FullPostType;
@@ -26,8 +32,6 @@ const PostDetail: React.FC<PostDetailProps> = ({ post }) => {
       }
     });
   }, [post?.content]);
-  
-  
 
   const oneWeekAgo = subWeeks(new Date(), 1);
   const isRecent = isWithinInterval(post?.createdAt, {
@@ -41,13 +45,28 @@ const PostDetail: React.FC<PostDetailProps> = ({ post }) => {
   });
 
   // Replace full time units with abbreviations
-  relativeTime = relativeTime.replace("minutes", "min").replace("hour", "h").replace("seconds", "sec");
+  relativeTime = relativeTime
+    .replace("minutes", "min")
+    .replace("hour", "h")
+    .replace("seconds", "sec");
 
   const displayDate = isRecent ? relativeTime : formattedDate;
 
   return (
     <div className="flex justify-center w-full">
       <div className="flex flex-col gap-16 max-w-4xl">
+        {post.thumbnail && (
+          <div className="flex items-center justify-center">
+            <Image 
+              alt="thumbnail" 
+              src={post.thumbnail} 
+              width={100}
+              height={200}
+              className="h-56 w-full object-cover"
+              unoptimized  
+            />
+          </div>
+        )}
         <div className="flex w-full justify-center">
           <h1 className="text-5xl font-bold">{post?.title}</h1>
         </div>
